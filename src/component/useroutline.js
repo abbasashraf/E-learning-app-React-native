@@ -27,7 +27,7 @@ function mapStateToProps(state) {
 
 
 
-class Outline extends Component<{}> {
+class UserOutline extends Component<{}> {
   constructor(props) {
     super(props);
     this.state = {
@@ -35,24 +35,6 @@ class Outline extends Component<{}> {
       outLine: "",
       data: []
     }
-  }
-
-
-  handleAddOutline() {
-    var keyforFetch = this.props.keyforFetch
-    var i = this.props.i
-    var outLinename = this.state.outLine
-    var courseName = this.props.courseName
-    var key = this.props.oneKey
-
-    if (outLinename.trim() == "") {
-      alert("please insert the outline name")
-    } else {
-
-      this.props.dispatch(FieldAction.addOutline(outLinename, courseName, i, keyforFetch))
-      this.setState({ outLine: "" })
-    }
-
   }
 
   componentDidMount() {
@@ -74,20 +56,14 @@ class Outline extends Component<{}> {
       data: []
     })
   }
-  outlineDelete(i) {
-    var key = this.props.oneKey
-    var courseName = this.props.courseName
-    var index = this.props.keys[i]
-    this.props.dispatch(FieldAction.deleteOutLine(index, key, courseName))
-  }
   render() {
     //console.log(this.props.data, "outline data in component")
-    var data = this.state.data
-    var name = this.props.courseName
     // var key = this.props.oneKey
     // console.log(name, key, "name, key")
     //console.log(this.props.keys, "keyyyyyyssss")
-    // console.log(this.state.outLine.length)
+    //console.log(this.state.outLine.length)
+    var data = this.state.data
+    var name = this.props.courseName
 
     return (
       <Container>
@@ -117,29 +93,12 @@ class Outline extends Component<{}> {
                     <Text style={{ color: "black", fontSize: 22 }}>{name.toUpperCase()}</Text>
                     <Text style={{ color: "black" }}>{data.length}</Text>
                   </Body>
-                  <Button info onPress={() => this.state.adbtn ? this.setState({ adbtn: false }) : this.setState({ adbtn: true })}><Text style={{ fontSize: 14, }}>  Add Outline  </Text></Button>
                   <View>
                     <Text>  </Text>
                   </View>
                 </CardItem>
               </Card>
             </View>
-
-            {this.state.adbtn ?
-              <View style={{
-                flexWrap: 'wrap',
-                alignItems: 'flex-start',
-                flexDirection: 'row',
-                flex: 1,
-                paddingLeft: 15
-              }}>
-
-                <Item floatingLabel style={{ width: width - 100, marginLeft: 4 }}>
-                  <Label>Add OutLine:</Label>
-                  <Input value={this.state.outLine} onChange={ev => this.setState({ outLine: ev.nativeEvent.text })} />
-                </Item>
-                <Button onPress={this.handleAddOutline.bind(this)} info rounded style={{ marginTop: 10, marginLeft: 14 }}><Text style={{ fontSize: 14, }}>   Add   </Text></Button>
-              </View> : null}
           </Content>
 
 
@@ -168,23 +127,11 @@ class Outline extends Component<{}> {
                           borderColor: "#ff4f00"
                         }}>
                           <TouchableOpacity style={{ backgroundColor: "#ff4f00" }}>
-                            <CardItem style={{ width: width - 78, }} >
+                            <CardItem style={{ width: width - 20, }} >
                               <Text>{i + 1}.     </Text>
                               <Text adjustsFontSizeToFit numberOfLines={2}>{val}</Text>
                             </CardItem>
                           </TouchableOpacity>
-
-                          <TouchableOpacity onPress={this.outlineDelete.bind(this, i)} >
-                            <Right style={{
-                              alignItems: "center",
-                              justifyContent: "center",
-                              // flexDirection: "column"
-                              width: 30
-                            }}>
-                              <Icon size={20} name="delete" />
-                            </Right>
-                          </TouchableOpacity>
-
                         </View>
 
                       )
@@ -208,5 +155,5 @@ const styles = StyleSheet.create({
 });
 
 
-export default connect(mapStateToProps)(Outline);
+export default connect(mapStateToProps)(UserOutline);
 

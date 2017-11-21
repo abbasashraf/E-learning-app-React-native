@@ -10,6 +10,8 @@ import {
   StyleSheet,
   Text,
   View,
+  BackHandler,
+  BackAndroid
 } from 'react-native';
 import Fields from "./fields.js"
 import AddField from './addField'
@@ -19,10 +21,12 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import { connect } from 'react-redux';
 import { LogOutAction } from "../store/actions/logout";
 import { Actions } from 'react-native-router-flux';
+import fireBase from '../firebase';
 
 
 
-class Home extends Component<{}> {
+
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,14 +34,21 @@ class Home extends Component<{}> {
   }
 
 
+ 
+
+
+
+
   logOut() {
     this.props.dispatch(LogOutAction.logout())
     Actions.login()
   }
   render() {
+    //console.log(this.props)
+    //console.log("home.js")
+
+
     return (
-
-
 
       <Container>
         <Header
@@ -53,17 +64,13 @@ class Home extends Component<{}> {
           <Right>
             <Button onPress={this.logOut.bind(this)} transparent>
               {/* <Icon name='menu' /> */}
-              <Text style={{color:"white"}}>Logout</Text>
+              <Text style={{ color: "white" }}>Logout</Text>
 
             </Button>
           </Right>
         </Header>
-
         <Content>
-          <Fields />
-          <ModalDropdown options={['option 1', 'option 2']}>
-
-          </ModalDropdown>
+          {<Fields />}
         </Content>
       </Container>
     );

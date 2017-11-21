@@ -10,6 +10,8 @@ import {
 import { connect } from 'react-redux';
 import { SigninAction } from '../store/actions/login.js';
 import { FormLabel, FormInput, FormValidationMessage, Button } from 'react-native-elements';
+import { Spinner } from 'native-base';
+
 var { height, width } = Dimensions.get('window');
 import fireBase from '../firebase';
 import { Actions } from 'react-native-router-flux';
@@ -32,18 +34,18 @@ class Login extends Component<{}> {
             loader: true
         }
     }
-    componentWillMount() {
-        fireBase.auth().onAuthStateChanged(() => {
-            if (fireBase.auth().currentUser) {
-                Actions.home();
-            }
-            else {
-                this.setState({
-                    loader: false
-                })
-            }
-        })
-    }
+    // componentWillMount() {
+    //     fireBase.auth().onAuthStateChanged(() => {
+    //         if (fireBase.auth().currentUser) {
+    //             Actions.home();
+    //         }
+    //         else {
+    //             this.setState({
+    //                 loader: false
+    //             })
+    //         }
+    //     })
+    // }
     loginSubmit() {
         var credentials = {};
         credentials.email = this.state.email
@@ -54,6 +56,7 @@ class Login extends Component<{}> {
 
     }
     render() {
+       // console.log("login")
         // console.log(this.props.error)
         const error = this.props.error ? this.props.error : ""
         return (
@@ -64,8 +67,7 @@ class Login extends Component<{}> {
                     <Text style={{ color: "#ff4f00", fontSize: 22 }}>E-LearninG {'\n'} {'\n'} {'\n'}</Text>
                 </View>
 
-                {
-                    this.state.loader ? <View></View> :
+                
                         <View style={styles.box}>
                             <FormLabel ><Text style={{ fontSize: 16, color: "#6495ED" }}>Email</Text> </FormLabel>
                             <FormInput style={{
@@ -99,7 +101,7 @@ class Login extends Component<{}> {
                                     this.loginSubmit.bind(this)
                                 }
                             />
-                        </View>}
+                        </View>
 
 
             </View>
@@ -114,7 +116,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-         alignItems: 'center',
+        alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },
     welcome: {
